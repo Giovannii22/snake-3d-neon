@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Snake 3D Neon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <div id="ui">
+    <div id="hud">
+      <div class="stat">
+        <span class="label">Score</span>
+        <span id="score">0</span>
+      </div>
+      <div class="stat">
+        <span class="label">Recorde</span>
+        <span id="highscore">0</span>
+      </div>
+    </div>
+
+    <div id="start-screen" class="overlay">
+      <h1>SNAKE<span class="accent">3D</span></h1>
+      <p class="hint">Arraste (swipe) ou pressione uma direção para começar</p>
+    </div>
+
+    <div id="game-over-screen" class="overlay hidden">
+      <h1 class="danger">GAME OVER</h1>
+      <p class="sub">Pontuação: <span id="final-score">0</span></p>
+      <button id="restart-btn">Jogar novamente</button>
+    </div>
+
+    <div id="pause-screen" class="overlay hidden">
+      <h1>PAUSADO</h1>
+      <p class="hint">Toque no botão ou pressione P / Espaço para continuar</p>
+    </div>
+
+    <button id="pause-btn" aria-label="Pausar">❚❚</button>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
