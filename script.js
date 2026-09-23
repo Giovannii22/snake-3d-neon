@@ -29,10 +29,18 @@ const pauseBtn = document.getElementById("pause-btn");
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x05060f);
 
-const viewSize = GRID_SIZE * 0.58;
+const HALF_BOARD = (GRID_SIZE / 2) * 1.03;
 let aspect = window.innerWidth / window.innerHeight;
+
+function frustumExtents() {
+  return aspect >= 1
+    ? { halfW: HALF_BOARD * aspect, halfH: HALF_BOARD }
+    : { halfW: HALF_BOARD, halfH: HALF_BOARD / aspect };
+}
+
+const initialExtents = frustumExtents();
 const camera = new THREE.OrthographicCamera(
-  -viewSize * aspect, viewSize * aspect, viewSize, -viewSize, 0.1, 100
+  -initialExtents.halfW, initialExtents.halfW, initialExtents.halfH, -initialExtents.halfH, 0.1, 100
 );
 camera.up.set(0, 0, -1);
 camera.position.set(0, GRID_SIZE, 0);
@@ -290,10 +298,11 @@ window.addEventListener("touchend", (e) => {
 // ---------- Resize ----------
 function onResize() {
   aspect = window.innerWidth / window.innerHeight;
-  camera.left = -viewSize * aspect;
-  camera.right = viewSize * aspect;
-  camera.top = viewSize;
-  camera.bottom = -viewSize;
+  const { halfW, halfH } = frustumExtents();
+  camera.left = -halfW;
+  camera.right = halfW;
+  camera.top = halfH;
+  camera.bottom = -halfH;
   camera.updateProjectionMatrix();
 
   renderer.setSize(window.innerWidth, window.innerHeight);
